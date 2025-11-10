@@ -15,6 +15,7 @@ A lightweight framework to optimize PyTorch models by rewriting computation grap
 - Float simplification
 - Constant folding
 - Dead code elimination
+- Quantization
 
 ### Example
 
@@ -43,6 +44,27 @@ All tests passed successfully.
 .
 1 passed in 0.81s
 ```
+
+### Benchmarks
+
+We compare inference times for three versions of an example model:  
+1. The original model
+2. The Neural Optimizer–optimized model
+3. The TorchScript–optimized model
+
+
+```
+(.venv) aman.bucha@LDD2QFY4HK Neural-Optimizer % python benchmarks/benchmark.py
+For 300,000 runs:
+Original Model took 24.3303 seconds.
+Neural Optimizer Optimized Model took 8.4652 seconds.
+TorchScript Optimized Model took 7.6490 seconds.
+```
+
+The Neural Optimizer achieves a **~3× speedup** over the baseline using only basic graph-level optimizations — already performing close to TorchScript’s optimized runtime.
+
+> **Note:** All benchmarks were performed **on CPU** with **single-sample (non-batched) inference** for a fair comparison of graph-level execution speed.
+
 
 ### Limitations
 - Optimizations are valid **only after model weights are initialized**
@@ -77,5 +99,20 @@ python main.py
 ```bash
 pytest -sq > tests/test.log
 ```
+
+### Benchmarking
+```bash
+python benchmarks/benchmark.py
+```
+
+### Future Work
+- Expand fusion support to cover more complex operator chains  
+- Integrate TensorFlow backend  
+- Add CUDA kernel-level optimizations for GPU benchmarking  
+- Improve numerical stability checks for quantization passes
+
+### License
+MIT License © 2025 Aman Bucha
+
 
 
