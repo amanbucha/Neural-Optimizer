@@ -106,7 +106,6 @@ python benchmarks/benchmark.py
 ```
 
 ### Future Work
-- Expand fusion support to cover more complex operator chains  
 - Integrate TensorFlow backend  
 - Add CUDA kernel-level optimizations for GPU benchmarking  
 - Improve numerical stability checks for quantization passes
