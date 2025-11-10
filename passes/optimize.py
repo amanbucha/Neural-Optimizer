@@ -6,6 +6,7 @@ from passes.fuse_conv_bn import fuse_conv_bn_fx
 from passes.fuse_conv_chains import fuse_conv_chain_fx
 from passes.fuse_linear_chains import fuse_linear_chain_fx
 from passes.simplify_floats import simplify_graph_floats_fx
+from passes.quantize import quantize_graph_fx
 
 def optimize_fx_model(model):
     traced = symbolic_trace(model)
@@ -17,6 +18,7 @@ def optimize_fx_model(model):
     simplify_ops_fx(graph)
     eliminate_dead_code_fx(graph)
     fuse_linear_chain_fx(graph, traced)
+    quantize_graph_fx(traced)
     graph.lint()
     optimized = GraphModule(traced, graph)
     return optimized

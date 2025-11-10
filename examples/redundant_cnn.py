@@ -17,12 +17,11 @@ class RedundantCNN(nn.Module):
         x = self.conv1(x)
         x = self.conv2(x)
         x = self.bn(x)
-        x = x + 0 #Redundant Code
+        x = x + 0.0000000001 #Redundant Code
         x = self.flatten(x)
         x = self.linear1(x)
         x = self.linear2(x)
-        x = x * pow(1, -10) #Small, effectively equals x = 0
-        temp = torch.tensor(3.0) + torch.tensor(2.0)
+        temp = torch.tensor(3.1415) + torch.tensor(2.718)
         _ = temp * 1
         _ = temp + 0
         _ = x * 0
